@@ -1,0 +1,18 @@
+{
+  "siparis": {
+    "id": "883db787-b0fc-4bd9-8032-707ca513a84a",
+    "durum": "rezerveEdildi",
+    "tarih": "2026-10-26T17:36:28.5285005Z",
+    "satirlar": [
+      {
+        "urunKod": "URN-001",
+        "istenen": 3,
+        "rezerve": 3,
+        "iptal": 0,
+        "aktifRezervasyon": 3
+      }
+    ]
+  },
+  "httpDurumu": 201,
+  "anahtar": "guided-order-6b25d051b9a344589a6a536a9ce3b02a"
+}

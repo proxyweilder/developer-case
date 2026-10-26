@@ -1,0 +1,5 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+WORKDIR /source
+COPY . .
+RUN dotnet restore DeveloperCase.sln --configfile NuGet.Config
+ENTRYPOINT ["dotnet","test","DeveloperCase.sln","--no-restore","--logger","console;verbosity=normal"]

@@ -1,0 +1,67 @@
+[
+  {
+    "httpDurumu": 200,
+    "stok": {
+      "kod": "URN-001",
+      "fiziksel": 10,
+      "rezerve": 2,
+      "kullanilabilir": 8
+    },
+    "adim": "Kısmi iptal",
+    "sonuc": {
+      "id": "883db787-b0fc-4bd9-8032-707ca513a84a",
+      "durum": "kismenIptalEdildi",
+      "tarih": "2026-10-26T17:36:28.5285005Z",
+      "satirlar": [
+        {
+          "urunKod": "URN-001",
+          "istenen": 3,
+          "rezerve": 3,
+          "iptal": 1,
+          "aktifRezervasyon": 2
+        }
+      ]
+    }
+  },
+  {
+    "httpDurumu": 201,
+    "adim": "Bayi teklifi",
+    "sonuc": {
+      "id": 1,
+      "cariKod": "CARI-001",
+      "tutar": 460.0,
+      "kdvliTutar": 552.0,
+      "yeniBakiye": 552.0,
+      "limitAsimiOnaylandi": false
+    }
+  },
+  {
+    "sonuc": {
+      "title": "Kredi limiti aşılacak. Devam etmek istiyorsanız aynı bilgileri krediLimitiAsiminiOnayla: true ile gönderin.",
+      "status": 409,
+      "instance": "/teklifler",
+      "kod": "kredi_limiti_onayi_gerekli",
+      "istekKimligi": "0HNPJGT0HO6BC:00000001",
+      "ayrinti": {
+        "krediLimiti": 100.0,
+        "bakiye": 0.0,
+        "teklifTutari": 120.0,
+        "yeniBakiye": 120.0
+      }
+    },
+    "adim": "Onaysız limit aşımı",
+    "httpDurumu": 409
+  },
+  {
+    "sonuc": {
+      "id": 2,
+      "cariKod": "CARI-002",
+      "tutar": 100,
+      "kdvliTutar": 120.0,
+      "yeniBakiye": 120.0,
+      "limitAsimiOnaylandi": true
+    },
+    "adim": "Onaylı limit aşımı",
+    "httpDurumu": 201
+  }
+]

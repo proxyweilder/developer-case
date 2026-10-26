@@ -1,0 +1,23 @@
+{
+  "sonuc": "Basarili",
+  "domainDisBagimlilik": false,
+  "caseArasiProjeReferansi": false,
+  "referanslar": [
+    {
+      "proje": "src\\Case1.Api\\Case1.Api.csproj",
+      "referans": "src\\Case1.Domain\\Case1.Domain.csproj"
+    },
+    {
+      "proje": "tests\\Case1.Tests\\Case1.Tests.csproj",
+      "referans": "src\\Case1.Api\\Case1.Api.csproj"
+    },
+    {
+      "proje": "src\\Case2.Api\\Case2.Api.csproj",
+      "referans": "src\\Case2.Domain\\Case2.Domain.csproj"
+    },
+    {
+      "proje": "tests\\Case2.Tests\\Case2.Tests.csproj",
+      "referans": "src\\Case2.Api\\Case2.Api.csproj"
+    }
+  ]
+}

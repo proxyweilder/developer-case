@@ -1,0 +1,46 @@
+@baseUrl = http://localhost:5081
+# Replace after creating an order.
+@orderId = 00000000-0000-0000-0000-000000000000
+
+### 1. Read available stock
+GET {{baseUrl}}/urunler/URN-001/stok
+
+### 2. Create order. Reusing this key and body returns the same order.
+POST {{baseUrl}}/siparisler
+Content-Type: application/json
+Idempotency-Key: demo-order-001
+
+{
+  "stokTercihi": "tumunuReddet",
+  "satirlar": [
+    { "urunKod": "URN-001", "miktar": 3 }
+  ]
+}
+
+### 3. Get order. Paste the response id into orderId above.
+GET {{baseUrl}}/siparisler/{{orderId}}
+
+### 4. Cancel one unit
+POST {{baseUrl}}/siparisler/{{orderId}}/iptal
+Content-Type: application/json
+
+{ "satirlar": [ { "urunKod": "URN-001", "miktar": 1 } ] }
+
+### 5. Cancel all remaining units
+POST {{baseUrl}}/siparisler/{{orderId}}/iptal
+Content-Type: application/json
+
+{ "satirlar": null }
+
+### 6. Accept only the available quantity; zero-stock lines are reported with zero reservation
+POST {{baseUrl}}/siparisler
+Content-Type: application/json
+Idempotency-Key: demo-partial-001
+
+{
+  "stokTercihi": "uygunMiktariAl",
+  "satirlar": [
+    { "urunKod": "URN-001", "miktar": 20 },
+    { "urunKod": "URN-003", "miktar": 1 }
+  ]
+}

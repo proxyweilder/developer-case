@@ -1,0 +1,20 @@
+  Case1.Domain -> C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\src\Case1.Domain\bin\Debug\net8.0\Case1.Domain.dll
+  Case1.Api -> C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\src\Case1.Api\bin\Debug\net8.0\Case1.Api.dll
+  Case1.Tests -> C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\tests\Case1.Tests\bin\Debug\net8.0\Case1.Tests.dll
+Test run for C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\tests\Case1.Tests\bin\Debug\net8.0\Case1.Tests.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    21, Skipped:     0, Total:    21, Duration: 979 ms - Case1.Tests.dll (net8.0)
+  Case2.Domain -> C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\src\Case2.Domain\bin\Debug\net8.0\Case2.Domain.dll
+  Case2.Api -> C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\src\Case2.Api\bin\Debug\net8.0\Case2.Api.dll
+  Case2.Tests -> C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\tests\Case2.Tests\bin\Debug\net8.0\Case2.Tests.dll
+Test run for C:\Users\Ghostface\Documents\Codex\2026-10-26\i-x20\outputs\DeveloperCase\tests\Case2.Tests\bin\Debug\net8.0\Case2.Tests.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    22, Skipped:     0, Total:    22, Duration: 932 ms - Case2.Tests.dll (net8.0)

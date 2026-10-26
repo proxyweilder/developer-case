@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:5082
+
+### 1. Dealer quote: 50 x 10, combined discount 8%, net 460, VAT total 552
+POST {{baseUrl}}/teklifler
+Content-Type: application/json
+
+{
+  "cariKod": "CARI-001",
+  "satirlar": [ { "miktar": 50, "birimFiyat": 10 } ],
+  "krediLimitiAsiminiOnayla": false
+}
+
+### 2. Credit limit 100, quote 120: returns 409; writes nothing
+POST {{baseUrl}}/teklifler
+Content-Type: application/json
+
+{
+  "cariKod": "CARI-002",
+  "satirlar": [ { "miktar": 1, "birimFiyat": 100 } ],
+  "krediLimitiAsiminiOnayla": false
+}
+
+### 3. Explicit confirmation: rechecks current balance and saves
+POST {{baseUrl}}/teklifler
+Content-Type: application/json
+
+{
+  "cariKod": "CARI-002",
+  "satirlar": [ { "miktar": 1, "birimFiyat": 100 } ],
+  "krediLimitiAsiminiOnayla": true
+}

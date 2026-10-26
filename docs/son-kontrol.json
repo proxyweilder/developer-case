@@ -1,0 +1,38 @@
+[
+  {
+    "kontrol": "API 5081 sağlık",
+    "httpDurumu": 200,
+    "sonuc": "Healthy"
+  },
+  {
+    "kontrol": "API 5082 sağlık",
+    "httpDurumu": 200,
+    "sonuc": "Healthy"
+  },
+  {
+    "ayniSiparis": true,
+    "kontrol": "Aynı anahtarla tekrar",
+    "httpDurumu": 200,
+    "stokDegismedi": true
+  },
+  {
+    "kod": "gecersiz_miktar",
+    "kontrol": "Negatif sipariş miktarı",
+    "httpDurumu": 400
+  },
+  {
+    "kod": "urun_bulunamadi",
+    "kontrol": "Olmayan ürün",
+    "httpDurumu": 404
+  },
+  {
+    "kod": "gecersiz_satir",
+    "kontrol": "Negatif teklif fiyatı",
+    "httpDurumu": 400
+  },
+  {
+    "kod": "gecersiz_istek",
+    "kontrol": "Geçersiz JSON",
+    "httpDurumu": 400
+  }
+]
