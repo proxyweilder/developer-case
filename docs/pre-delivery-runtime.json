@@ -1,0 +1,107 @@
+{
+  "checkedUtc": "2026-10-31T15:49:14.350394+00:00",
+  "checks": [
+    {
+      "port": 5081,
+      "path": "/health",
+      "status": 200,
+      "body": "Healthy"
+    },
+    {
+      "port": 5081,
+      "path": "/",
+      "status": 200,
+      "body": "{\"uygulama\":\"Case 1 — Sipariş ve stok\",\"kilavuz\":\"README.md ve requests/case1.http\"}"
+    },
+    {
+      "port": 5082,
+      "path": "/health",
+      "status": 200,
+      "body": "Healthy"
+    },
+    {
+      "port": 5082,
+      "path": "/",
+      "status": 200,
+      "body": "{\"uygulama\":\"Case 2 — Teklif\",\"kilavuz\":\"README.md ve requests/case2.http\"}"
+    },
+    {
+      "port": 5081,
+      "path": "/urunler/URN-001/stok",
+      "status": 200,
+      "body": {
+        "kod": "URN-001",
+        "fiziksel": 10,
+        "rezerve": 2,
+        "kullanilabilir": 8
+      }
+    },
+    {
+      "port": 5081,
+      "path": "/urunler/URN-002/stok",
+      "status": 200,
+      "body": {
+        "kod": "URN-002",
+        "fiziksel": 1,
+        "rezerve": 0,
+        "kullanilabilir": 1
+      }
+    },
+    {
+      "port": 5081,
+      "path": "/urunler/URN-003/stok",
+      "status": 200,
+      "body": {
+        "kod": "URN-003",
+        "fiziksel": 0,
+        "rezerve": 0,
+        "kullanilabilir": 0
+      }
+    },
+    {
+      "port": 5081,
+      "path": "/siparisler",
+      "method": "POST invalid JSON",
+      "status": 400,
+      "body": {
+        "title": "JSON gövdesini ve alan türlerini kontrol edin.",
+        "status": 400,
+        "instance": "/siparisler",
+        "kod": "gecersiz_istek",
+        "istekKimligi": "0HNPNCQ1LSQFS:00000001"
+      }
+    },
+    {
+      "port": 5082,
+      "path": "/teklifler",
+      "method": "POST invalid JSON",
+      "status": 400,
+      "body": {
+        "title": "JSON gövdesini ve alan türlerini kontrol edin.",
+        "status": 400,
+        "instance": "/teklifler",
+        "kod": "gecersiz_istek",
+        "istekKimligi": "0HNPNCQ1N2QAF:00000001"
+      }
+    }
+  ],
+  "crossCaseReferences": false,
+  "projectReferences": [
+    {
+      "project": "src\\Case1.Api\\Case1.Api.csproj",
+      "reference": "../Case1.Domain/Case1.Domain.csproj"
+    },
+    {
+      "project": "src\\Case2.Api\\Case2.Api.csproj",
+      "reference": "../Case2.Domain/Case2.Domain.csproj"
+    },
+    {
+      "project": "tests\\Case1.Tests\\Case1.Tests.csproj",
+      "reference": "../../src/Case1.Api/Case1.Api.csproj"
+    },
+    {
+      "project": "tests\\Case2.Tests\\Case2.Tests.csproj",
+      "reference": "../../src/Case2.Api/Case2.Api.csproj"
+    }
+  ]
+}

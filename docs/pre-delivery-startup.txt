@@ -1,0 +1,161 @@
+ Image developercase-case1 Building 
+ Image developercase-case2 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.19kB done
+#1 DONE 0.0s
+
+#2 [case1 internal] load build definition from Dockerfile
+#2 transferring dockerfile: 677B done
+#2 DONE 0.0s
+
+#3 [case2 internal] load build definition from Dockerfile
+#3 transferring dockerfile: 677B done
+#3 DONE 0.0s
+
+#4 [case2 internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0
+#4 DONE 0.3s
+
+#5 [case2 internal] load metadata for mcr.microsoft.com/dotnet/aspnet:8.0
+#5 DONE 0.8s
+
+#6 [case1 internal] load .dockerignore
+#6 transferring context: 135B done
+#6 DONE 0.0s
+
+#7 [case1 build 1/9] FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:6ba9644da07bb5b560a402acec9ca38711a0762969f1b61da261df5c9f6f85da
+#7 resolve mcr.microsoft.com/dotnet/sdk:8.0@sha256:6ba9644da07bb5b560a402acec9ca38711a0762969f1b61da261df5c9f6f85da 0.1s done
+#7 DONE 0.1s
+
+#8 [case2 build 2/9] WORKDIR /source
+#8 CACHED
+
+#9 [case2 stage-1 1/3] FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:ea721098d6ea2894ff9bd8387821a1659d4765d6c014b8d648bb1da16f016f5a
+#9 resolve mcr.microsoft.com/dotnet/aspnet:8.0@sha256:ea721098d6ea2894ff9bd8387821a1659d4765d6c014b8d648bb1da16f016f5a 0.1s done
+#9 ...
+
+#10 [case2 internal] load build context
+#10 transferring context: 1.10kB done
+#10 DONE 0.0s
+
+#11 [case1 internal] load build context
+#11 transferring context: 23.78kB 0.0s done
+#11 DONE 0.1s
+
+#12 [case2 build 3/9] COPY NuGet.Config .
+#12 DONE 0.1s
+
+#13 [case1 build 3/9] COPY NuGet.Config .
+#13 CACHED
+
+#9 [case2 stage-1 1/3] FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:ea721098d6ea2894ff9bd8387821a1659d4765d6c014b8d648bb1da16f016f5a
+#9 DONE 0.2s
+
+#14 [case2 build 4/9] COPY src/Case2.Domain/Case2.Domain.csproj src/Case2.Domain/
+#14 DONE 0.2s
+
+#15 [case2 stage-1 2/3] WORKDIR /app
+#15 DONE 0.1s
+
+#16 [case1 build 4/9] COPY src/Case1.Domain/Case1.Domain.csproj src/Case1.Domain/
+#16 DONE 0.2s
+
+#17 [case2 build 5/9] COPY src/Case2.Api/Case2.Api.csproj src/Case2.Api/
+#17 DONE 0.1s
+
+#18 [case1 build 5/9] COPY src/Case1.Api/Case1.Api.csproj src/Case1.Api/
+#18 DONE 0.1s
+
+#19 [case1 build 6/9] RUN dotnet restore src/Case1.Api/Case1.Api.csproj --configfile NuGet.Config
+#19 0.720   Determining projects to restore...
+#19 1.032   Restored /source/src/Case1.Domain/Case1.Domain.csproj (in 62 ms).
+#19 5.575   Restored /source/src/Case1.Api/Case1.Api.csproj (in 4.62 sec).
+#19 ...
+
+#20 [case2 build 6/9] RUN dotnet restore src/Case2.Api/Case2.Api.csproj --configfile NuGet.Config
+#20 0.734   Determining projects to restore...
+#20 1.039   Restored /source/src/Case2.Domain/Case2.Domain.csproj (in 63 ms).
+#20 5.606   Restored /source/src/Case2.Api/Case2.Api.csproj (in 4.64 sec).
+#20 DONE 5.8s
+
+#19 [case1 build 6/9] RUN dotnet restore src/Case1.Api/Case1.Api.csproj --configfile NuGet.Config
+#19 DONE 5.8s
+
+#21 [case2 build 7/9] COPY src/Case2.Domain/ src/Case2.Domain/
+#21 DONE 0.2s
+
+#22 [case1 build 7/9] COPY src/Case1.Domain/ src/Case1.Domain/
+#22 DONE 0.2s
+
+#23 [case2 build 8/9] COPY src/Case2.Api/ src/Case2.Api/
+#23 DONE 0.1s
+
+#24 [case1 build 8/9] COPY src/Case1.Api/ src/Case1.Api/
+#24 DONE 0.2s
+
+#25 [case1 build 9/9] RUN dotnet publish src/Case1.Api/Case1.Api.csproj -c Release -o /app --no-restore /p:UseAppHost=false
+#25 2.267   Case1.Domain -> /source/src/Case1.Domain/bin/Release/net8.0/Case1.Domain.dll
+#25 2.930   Case1.Api -> /source/src/Case1.Api/bin/Release/net8.0/Case1.Api.dll
+#25 3.025   Case1.Api -> /app/
+#25 DONE 3.1s
+
+#26 [case2 build 9/9] RUN dotnet publish src/Case2.Api/Case2.Api.csproj -c Release -o /app --no-restore /p:UseAppHost=false
+#26 2.263   Case2.Domain -> /source/src/Case2.Domain/bin/Release/net8.0/Case2.Domain.dll
+#26 2.902   Case2.Api -> /source/src/Case2.Api/bin/Release/net8.0/Case2.Api.dll
+#26 3.004   Case2.Api -> /app/
+#26 DONE 3.1s
+
+#27 [case2 stage-1 3/3] COPY --from=build /app .
+#27 DONE 0.2s
+
+#28 [case1 stage-1 3/3] COPY --from=build /app .
+#28 DONE 0.2s
+
+#29 [case1] exporting to image
+#29 exporting layers
+#29 exporting layers 0.6s done
+#29 exporting manifest sha256:340862625617f817f6f8fea463d759a6f10f70ac3db7a7488696216eba250477 0.0s done
+#29 exporting config sha256:d1982b365adb6ede308a43a9f76848135391defe1c29d7f831c3eeb39c1c95dc 0.1s done
+#29 exporting attestation manifest sha256:e119cafd1a8541c0b4a888e2f4136401a041fb01387615ba1af09741cd3e2281 0.1s done
+#29 exporting manifest list sha256:95089a3e625942ecaee852464a18428a55d37382fc2124917a667fbdbc997ee8
+#29 exporting manifest list sha256:95089a3e625942ecaee852464a18428a55d37382fc2124917a667fbdbc997ee8 0.0s done
+#29 naming to docker.io/library/developercase-case1:latest 0.0s done
+#29 unpacking to docker.io/library/developercase-case1:latest
+#29 unpacking to docker.io/library/developercase-case1:latest 0.2s done
+#29 DONE 1.1s
+
+#30 [case2] exporting to image
+#30 exporting layers 0.7s done
+#30 exporting manifest sha256:6c610f5f73e403c7107b315f08689e580fbc02af00fac242d794cf192f27f1cd 0.0s done
+#30 exporting config sha256:ffe7e0edaaa6e5989293fc62f76d25e74c8b10416df3a58082127e3ac65bc581 0.1s done
+#30 exporting attestation manifest sha256:59c1e0e1e832cf891fd3a2d944552aef7135eb24a7560af051292e26f93c96a7 0.1s done
+#30 exporting manifest list sha256:1b91e7977b07d6f10ca2f95e520829b7cdf8678f33e04970d5eb37d3982bc0b3 0.1s done
+#30 naming to docker.io/library/developercase-case2:latest done
+#30 unpacking to docker.io/library/developercase-case2:latest 0.2s done
+#30 DONE 1.1s
+
+#31 [case1] resolving provenance for metadata file
+#31 DONE 0.0s
+
+#32 [case2] resolving provenance for metadata file
+#32 DONE 0.0s
+ Image developercase-case2 Built 
+ Image developercase-case1 Built 
+ Container developercase-sql-1 Running 
+ Container developercase-case2-1 Recreate 
+ Container developercase-case1-1 Recreate 
+ Container developercase-case1-1 Recreated 
+ Container developercase-case2-1 Recreated 
+ Container developercase-sql-1 Waiting 
+ Container developercase-sql-1 Waiting 
+ Container developercase-sql-1 Healthy 
+ Container developercase-case2-1 Starting 
+ Container developercase-sql-1 Healthy 
+ Container developercase-case1-1 Starting 
+ Container developercase-case2-1 Started 
+ Container developercase-case1-1 Started 
+ Container developercase-sql-1 Waiting 
+ Container developercase-case1-1 Waiting 
+ Container developercase-case2-1 Waiting 
+ Container developercase-case2-1 Healthy 
+ Container developercase-case1-1 Healthy 
+ Container developercase-sql-1 Healthy 

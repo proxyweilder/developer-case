@@ -5,6 +5,93 @@ using Dapper;
 namespace Case1.Tests;
 public class OrderIntegrationTests(SqlFixture sql) : IClassFixture<SqlFixture>
 {
+    [SqlTheory]
+    [InlineData("null")]
+    [InlineData("{}")]
+    [InlineData("{\"stokTercihi\":")]
+    [InlineData("{\"stokTercihi\":\"tumunuReddet\",\"satirlar\":[null]}")]
+    public async Task Invalid_json_returns_actionable_problem_without_creating_an_order(string body)
+    {
+        var key = Guid.NewGuid().ToString("N");
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/siparisler")
+        { Content = new StringContent(body, System.Text.Encoding.UTF8, "application/json") };
+        request.Headers.Add("Idempotency-Key", key);
+        using var response = await sql.Client.SendAsync(request);
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("application/problem+json", response.Content.Headers.ContentType!.MediaType);
+        using var problem = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        Assert.False(string.IsNullOrWhiteSpace(problem.RootElement.GetProperty("kod").GetString()));
+        Assert.False(string.IsNullOrWhiteSpace(problem.RootElement.GetProperty("title").GetString()));
+        await using var db = await sql.Open();
+        Assert.Equal(0, await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM dbo.Orders WHERE RequestKey=@key;", new { key }));
+    }
+
+    [SqlFact]
+    public async Task Reversed_multi_product_race_reserves_both_products_for_only_one_order()
+    {
+        var first = await Product(1); var second = await Product(1);
+        var gate = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        async Task<HttpResponseMessage> Send(bool reverse)
+        {
+            await gate.Task;
+            using var request = new HttpRequestMessage(HttpMethod.Post, "/siparisler")
+            { Content = JsonContent.Create(new OrderInput("tumunuReddet", reverse
+                ? [new(second, 1), new(first, 1)] : [new(first, 1), new(second, 1)])) };
+            request.Headers.Add("Idempotency-Key", Guid.NewGuid().ToString("N"));
+            return await sql.Client.SendAsync(request);
+        }
+        var left = Send(false); var right = Send(true); gate.SetResult();
+        var responses = await Task.WhenAll(left, right);
+        Assert.Single(responses, x => x.StatusCode == HttpStatusCode.Created);
+        Assert.Single(responses, x => x.StatusCode == HttpStatusCode.Conflict);
+        foreach (var code in new[] { first, second })
+        {
+            var stock = await sql.Client.GetFromJsonAsync<Stock>($"/urunler/{code}/stok");
+            Assert.Equal(1, stock!.Rezerve);
+            Assert.Equal(0, stock.Kullanilabilir);
+        }
+    }
+
+    [SqlFact]
+    public async Task Normalized_retry_after_cancellation_returns_current_order_without_reserving_again()
+    {
+        var first = await Product(3); var second = await Product(3);
+        var key = Guid.NewGuid().ToString("N");
+        async Task<HttpResponseMessage> Send(List<OrderLineInput> lines)
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Post, "/siparisler")
+            { Content = JsonContent.Create(new OrderInput("tumunuReddet", lines)) };
+            request.Headers.Add("Idempotency-Key", key);
+            return await sql.Client.SendAsync(request);
+        }
+        using var initial = await Send([new(first, 1), new(second, 1)]);
+        Assert.Equal(HttpStatusCode.Created, initial.StatusCode);
+        var order = await initial.Content.ReadFromJsonAsync<Order>();
+        using var cancelled = await sql.Client.PostAsJsonAsync($"/siparisler/{order!.Id}/iptal", new CancellationInput(null));
+        Assert.Equal(HttpStatusCode.OK, cancelled.StatusCode);
+        using var replay = await Send([new(" " + second.ToLowerInvariant() + " ", 1), new(first.ToLowerInvariant(), 1)]);
+        Assert.Equal(HttpStatusCode.OK, replay.StatusCode);
+        Assert.Equal("true", Assert.Single(replay.Headers.GetValues("Idempotent-Replayed")));
+        var current = await replay.Content.ReadFromJsonAsync<Order>();
+        Assert.Equal(order.Id, current!.Id);
+        Assert.Equal("iptalEdildi", current.Durum);
+        foreach (var code in new[] { first, second })
+            Assert.Equal(0, (await sql.Client.GetFromJsonAsync<Stock>($"/urunler/{code}/stok"))!.Rezerve);
+    }
+
+    [SqlFact]
+    public async Task Partial_choice_with_no_available_stock_does_not_consume_request_key()
+    {
+        var code = await Product(0); var key = Guid.NewGuid().ToString("N");
+        using var rejected = await Create(code, 1, key, "uygunMiktariAl");
+        Assert.Equal(HttpStatusCode.Conflict, rejected.StatusCode);
+        await using var db = await sql.Open();
+        Assert.Equal(0, await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM dbo.Orders WHERE RequestKey=@key;", new { key }));
+        await db.ExecuteAsync("UPDATE dbo.Products SET Physical=1 WHERE Code=@code;", new { code });
+        using var retry = await Create(code, 1, key, "uygunMiktariAl");
+        Assert.Equal(HttpStatusCode.Created, retry.StatusCode);
+    }
+
     private async Task<string> Product(int stock)
     {
         var code = "T-" + Guid.NewGuid().ToString("N");

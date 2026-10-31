@@ -5,6 +5,25 @@ using Dapper;
 namespace Case2.Tests;
 public class QuoteIntegrationTests(SqlFixture sql) : IClassFixture<SqlFixture>
 {
+    [SqlTheory]
+    [InlineData("null")]
+    [InlineData("{}")]
+    [InlineData("{\"cariKod\":")]
+    [InlineData("{\"cariKod\":\"CARI-001\",\"satirlar\":[null]}")]
+    public async Task Invalid_json_returns_actionable_problem_without_writes(string body)
+    {
+        await using var db = await sql.Open();
+        var before = await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM dbo.Teklifler;");
+        using var response = await sql.Client.PostAsync("/teklifler",
+            new StringContent(body, System.Text.Encoding.UTF8, "application/json"));
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("application/problem+json", response.Content.Headers.ContentType!.MediaType);
+        using var problem = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        Assert.False(string.IsNullOrWhiteSpace(problem.RootElement.GetProperty("kod").GetString()));
+        Assert.False(string.IsNullOrWhiteSpace(problem.RootElement.GetProperty("title").GetString()));
+        Assert.Equal(before, await db.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM dbo.Teklifler;"));
+    }
+
     private async Task<string> Customer(decimal limit)
     {
         var code = "C-" + Guid.NewGuid().ToString("N")[..16];

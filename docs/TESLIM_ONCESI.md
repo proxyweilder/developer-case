@@ -14,7 +14,7 @@ Aynı repoda ve aynı solution içinde teslim etmek dokümanın şartıdır. Com
 ## Tamamlanan kontroller
 
 - Sıfır hata ve uyarıyla çözüm derlemesi.
-- Docker/gerçek SQL Server üzerinde güncel toplam 43/43 test; başarısız veya atlanan test yok.
+- Docker/gerçek SQL Server üzerinde güncel toplam 54/54 test (31 Ekim; 28 Case 1, 26 Case 2); başarısız veya atlanan test yok.
 - İki ayrı API image'ının build edilmesi ve Production ortamında açılması.
 - İki dış porttan HTTP 200 / Healthy; her sağlık kontrolü kendi veritabanına bağlanıyor.
 - Canlı demo: sipariş 201, kısmi iptal 200, bayi teklifi 460 net / 552 KDV dahil, limit aşımında onaysız 409 ve açık onayla 201.
@@ -30,11 +30,13 @@ Kaynak kod, SQL şema/başlangıç scriptleri, testler, Compose/Dockerfile'lar, 
 
 SQL Server'ın çalışan veri dosyaları veya Docker volume'u yüklenmez. Yeni bir bilgisayarda Compose açılışındaki scriptler iki veritabanını, tabloları ve başlangıç kayıtlarını oluşturur. Bu makinedeki demo siparişi ve bakiye değişiklikleri yeni kurulumun başlangıç verisi değildir.
 
+## Son teslim kontrolü
+
+31 Ekim yeniden kontrolü SON_TESLIM_KONTROLU.md içinde kayıtlıdır. Ek 11 SQL senaryosu geçti; yerel ve Docker testleri aynı 54 testi başarıyla çalıştırdı. KARARLAR.md metninin tamamını içeren KARARLAR.pdf bir sayfa olarak render edildi ve görsel kontrolü yapıldı. Ham konuşma kopyası 267 mesaja güncellendi. Kaynak ZIP'i güncel dosyalardan yeniden oluşturuldu.
+
 ## Teslimi tamamlamak için gerekenler
 
-1. İşverenin istediği düzenlenmemiş AI konuşma dökümü eklenmeli. AI_KONUSMA_DOKUMU.md şu anda yalnız bunun eksik olduğunu açıklar.
-2. Gerçek çalışma süresi kaydedilmeli; 3 saat sınırına uyulduğu varsayılmamalı veya sonradan uydurulmamalı.
-3. Mailin gönderildiği tarih/son teslim tarihi doğrulanmalı.
-4. GitHub/GitLab hedef hesabı ve repo görünürlüğü seçilmeli; bağlantı ve yazma yetkisi doğrulanınca yüklenmeli. Bu inceleme sırasında dışarıya yayın yapılmadı.
+1. Kesin aktif çalışma süresi ayrı sayaçla ölçülmedi; süreye ilişkin gerçeğe aykırı bir tamamlanma iddiası eklenmemeli.
+2. Private GitHub reposuna değerlendirici erişimi verilmeli veya güncel kaynak ZIP'i teslim edilmeli. Repo: https://github.com/proxyweilder/developer-case. Kullanıcı 31 Ekim 2026 tarihinde güncel kaynakların commit ve push işlemini onayladı.
 
-KARARLAR.md kısa karar kaydıdır; ayrıntılı teknik açıklamalar docs/SORGULAR.md içinde tutulur. Kaynak ZIP'i inceleme paketidir; eksik AI dökümü nedeniyle eksiksiz nihai teslim olarak sunulmamalıdır.
+KARARLAR.md kısa karar kaydıdır; ayrıntılı teknik açıklamalar docs/SORGULAR.md içinde tutulur.

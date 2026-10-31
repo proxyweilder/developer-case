@@ -1,3 +1,9 @@
+# Güncel doğrulama
+
+31 Ekim 2026: yerel .NET ve Docker üzerinden **54/54** test geçti. Case 1: 28 (11 birim, 17 SQL); Case 2: 26 (16 birim, 10 SQL). Atlanan veya başarısız test yok. Güncel kanıtlar pre-delivery-local-tests.txt ve pre-delivery-docker-tests.txt içindedir. İki API Compose ile yeniden derlendi ve açıldı; iki /health adresi HTTP 200 / Healthy verdi. Güncel NuGet taramasında bilinen açık bildirilmedi. Ayrıntılar SON_TESLIM_KONTROLU.md içindedir.
+
+Aşağıdaki bölüm önceki doğrulamaların tarihsel kaydıdır.
+
 # Doğrulama durumu
 
 26 Ekim 2026 geliştirme ve kullanıcının paylaştığı Docker çalıştırma çıktısı:
@@ -58,4 +64,4 @@ Sağlık kontrolü her API'nin kendi SQL bağlantısında SELECT 1 çalıştırd
 
 ## Teslim öncesi kalanlar
 
-AI konuşma dökümü, gerçek çalışma süresi ve kesin son teslim tarihi tamamlanmalıdır. GitHub/GitLab bağlantısı veya kaynak kod ZIP'i teslim biçimi olarak seçilmelidir. Çalışan API'lerin kullanımı README.md ve requests klasöründeki örneklerde açıklanmıştır.
+Gerçek çalışma süresi kaydedilmeli ve 1 Kasım 2026 olarak hesaplanan teslim tarihinin kesin saati teyit edilmelidir. Kaynak kod private GitHub reposunda mevcuttur; değerlendirici erişimi veya kaynak ZIP'i teslim biçimi netleştirilmelidir. Çalışan API'lerin kullanımı README.md ve requests klasöründeki örneklerde açıklanmıştır.

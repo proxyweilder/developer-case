@@ -1,0 +1,10 @@
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+
+The given project `Case1.Api` has no vulnerable packages given the current sources.
+The given project `Case1.Domain` has no vulnerable packages given the current sources.
+The given project `Case1.Tests` has no vulnerable packages given the current sources.
+The given project `Case2.Api` has no vulnerable packages given the current sources.
+The given project `Case2.Domain` has no vulnerable packages given the current sources.
+The given project `Case2.Tests` has no vulnerable packages given the current sources.

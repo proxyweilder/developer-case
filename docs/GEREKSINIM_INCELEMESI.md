@@ -1,10 +1,14 @@
+# Güncel gereksinim kontrolü
+
+31 Ekim 2026 yeniden kontrolü: aşağıdaki teknik gereksinimler tekrar incelendi. Yerel ve Docker çalıştırmalarında 54/54 test başarılı, sıfır atlanan. Sonuç ve yeni kontroller SON_TESLIM_KONTROLU.md içindedir. Önceki 43/39/37 testlik kayıtlar tarihsel kanıttır. Ham konuşma 267 mesaja güncellendi; tek sayfalık karar baskısı KARARLAR.pdf ile doğrulandı. Kullanıcı 31 Ekim 2026 tarihinde güncel kaynakların commit ve push işlemini onayladı.
+
 # Mail ve case dokümanı gereksinim incelemesi
 
-Kaynak: kullanıcının paylaştığı mail metni ve Yazilim_Gelistirici_Case.docx. İnceleme 26 Ekim 2026 tarihinde güncel kaynak kod, testler ve çalışma kanıtları üzerinde yapıldı. GitHub'a yayın yapılmadı.
+Kaynak: kullanıcının paylaştığı mail metni ve Yazilim_Gelistirici_Case.docx. İlk inceleme 26 Ekim 2026 tarihinde güncel kaynak kod, testler ve çalışma kanıtları üzerinde yapıldı. İlk kaynak sürümü private GitHub reposuna yüklendi; 31 Ekim son incelemesinin değişiklikleri de kullanıcının yayın onayı kapsamındadır.
 
 ## Sonuç
 
-İncelenen kapsamda çalışmayı engelleyen bir işlevsel kusur bulunmadı. Temel teknik gereksinimler karşılanıyor. Teslim henüz bütünüyle tamamlanmış değildir: ham AI dökümü eksik, gerçek çalışma süresi ve mail tarihi doğrulanmadı, KARARLAR.md için bir sayfalık baskı görünümü ayrıca doğrulanmalıdır.
+İncelenen kapsamda çalışmayı engelleyen bir işlevsel kusur bulunmadı. Temel teknik gereksinimler karşılanıyor; karar belgesinin bir sayfalık baskısı da doğrulandı. Kesin aktif çalışma süresi ölçülmemiştir. Yayın ve değerlendirici erişimi teslimden önce tamamlanmalıdır.
 
 ## Genel gereksinimler
 
@@ -13,15 +17,15 @@ Kaynak: kullanıcının paylaştığı mail metni ve Yazilim_Gelistirici_Case.do
 | C# / ASP.NET Core / .NET 8+ | Karşılanıyor | İki API net8.0 |
 | SQL Server ve açıklanan veri erişim seçimi | Karşılanıyor | Compose SQL Server 2022, Dapper; KARARLAR.md |
 | Birbirinden bağımsız iki case | Karşılanıyor | Ayrı API, Domain, test ve veritabanı; cross-case proje referansı yok |
-| Her iki case için tek repo/paket | Yapı hazır | DeveloperCase.sln ve kaynak ZIP'i; GitHub yüklemesi kullanıcı isteğiyle bekliyor |
+| Her iki case için tek repo/paket | Yapı hazır | DeveloperCase.sln, kaynak ZIP'i ve proxyweilder/developer-case private reposu |
 | Tek komutla Docker Compose | Doğrulandı | İki runtime image açıldı, 5081/5082 sağlık kontrolleri 200/Healthy |
-| Kritik kuralların otomatik testleri | Doğrulandı | Güncel 43 testin tamamı gerçek SQL erişimiyle geçti |
+| Kritik kuralların otomatik testleri | Doğrulandı | Güncel 54 testin tamamı yerel ve Docker çalıştırmalarında gerçek SQL erişimiyle geçti |
 | README ve örnek istekler | Mevcut | README.md, requests/case1.http, requests/case2.http |
+| AI ile konuşmaların kopyası | Eklendi | AI_KONUSMA_DOKUMU.md ve docs/AI_KONUSMA_HAM.json; ilk mesajdan 31 Ekim teslim incelemesindeki dışa aktarıma kadar 267 mesaj, özetlenmeden |
 | KARARLAR içerik gereksinimleri | Mevcut | Seçim, varsayım, kapsam dışı, ek süre ve eski kod kararları yazılı |
-| KARARLAR en fazla bir sayfa | Görsel kontrol bekliyor | Markdown'ın baskı sayfa sayısı seçilen görüntüleyiciye bağlı |
-| Düzenlenmemiş AI görüşme dökümü | Eksik | AI_KONUSMA_DOKUMU.md bir durum notu; gerçek döküm değil |
+| KARARLAR en fazla bir sayfa | Doğrulandı | KARARLAR.md metninin tamamını içeren KARARLAR.pdf: bir A4 sayfa; görsel kontrol yapıldı |
 | En fazla 3 saat çalışma | Doğrulanamadı | Gerçek çalışma süresi kaydedilmeli; sonradan varsayılmamalı |
-| Mailden itibaren 1 hafta teslim | Doğrulanamadı | Mailin gönderim tarihi paylaşılmadı |
+| Bir haftalık teslim penceresi | Tarih bilgisi alındı | Kullanıcı 25 Ekim 2026’da teslim aldığını belirtti; bu tarihten bir hafta 1 Kasım 2026, kesin saat teyide tabi |
 
 ## Case 1
 
@@ -65,7 +69,7 @@ Eski masaüstü uygulaması transaction dışında kredi kontrolü yapmaya devam
 3. Case 1 başarısız çok satırlı iptalde stokların da geri alındığı doğrulandı.
 4. Case 2 bakiye yazma hatasında teklifin de geri alındığını doğrulayan entegrasyon testi eklendi. Hata tetikleyicisi yalnız ayrı test veritabanında kuruldu ve kaldırıldı.
 
-Güncel sonuç: Case 1 21/21, Case 2 22/22; toplam 43 başarılı, 0 başarısız, 0 atlanan. Son kanıt sql-reliability-test-run.txt içindedir; önceki 39 testlik çıktı review-test-run.txt içinde korunmuştur. Önceki Docker 37/37 çıktısı test-run.txt içinde tarihsel kanıt olarak korunmuştur.
+26 Ekim sonucu: Case 1 21/21, Case 2 22/22; toplam 43 başarılı, 0 başarısız, 0 atlanan. Bu tarihsel kanıt sql-reliability-test-run.txt içindedir; önceki 39 testlik çıktı review-test-run.txt içinde korunmuştur. 31 Ekim güncel sonucu 54/54'tür; pre-delivery-local-tests.txt ve pre-delivery-docker-tests.txt içindedir.
 
 ## SQL Server ek doğrulamaları
 

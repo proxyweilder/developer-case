@@ -179,6 +179,10 @@ Sorguların adım adım açıklaması, kilitlerin nedenleri ve performans sını
 - UI, kullanıcı girişi, yetkilendirme ve üretim dağıtımı bu case'in kapsamı değildir. Compose yalnız yerel makineye port açar.
 - Yerel demo, başlangıç şeması oluşturabilmek için `sa` kullanır. Gerçek ortamda şema kurulumu ayrı bir dağıtım adımı, uygulama hesabı sınırlı yetkili olmalıdır.
 - Masaüstü uygulamasının orijinal kodu transaction kullanmadığından eski uygulama ile API birlikte çalışırken kredi kontrolünü uçtan uca garanti etmek için masaüstü yazma akışının da düzeltilmesi gerekir.
-- İlk Docker çalıştırmasında 37/37 test geçti (docs/test-run.txt). Son incelemede rollback ve SQL güvenilirlik kontrolleriyle gerçek SQL Server üzerinde Case 1 için 21/21, Case 2 için 22/22; toplam 43/43 test geçti. Atlanan veya başarısız test yok. Güncel çıktı docs/sql-reliability-test-run.txt, önceki 39 testlik kontrol docs/review-test-run.txt ve gereksinim incelemesi docs/GEREKSINIM_INCELEMESI.md içindedir. Ayrı API container image’ları da başarıyla oluşturuldu; 5081 ve 5082 portlarındaki sağlık kontrolleri doğrudan HTTP 200 / Healthy döndürdü.
+- 31 Ekim 2026 teslim öncesi kontrolünde hem yerel .NET çalıştırıcısı hem Docker üzerinden **54/54 test** geçti: Case 1 **28/28**, Case 2 **26/26**; başarısız veya atlanan test yok. Çıktılar `docs/pre-delivery-local-tests.txt` ve `docs/pre-delivery-docker-tests.txt` içindedir. İki API yeniden derlenip Compose ile açıldı; dış portlardan HTTP 200 / Healthy alındı. NuGet taramasında bildirilmiş açık yoktu. Güncel inceleme: [docs/SON_TESLIM_KONTROLU.md](docs/SON_TESLIM_KONTROLU.md). Önceki test çıktıları tarihsel kanıt olarak korunur.
+- [KARARLAR.md](KARARLAR.md) metninin tek sayfalık baskı kopyası [KARARLAR.pdf](KARARLAR.pdf) içindedir; bütün kararlar her iki dosyada da bulunur.
 - İşverenin toplam en fazla 3 saat çalışma sınırı ve mailden itibaren bir hafta teslim süresi geçerlidir. Gerçek süre ve varsa eksik kalan işler teslim öncesi doğru biçimde kaydedilmelidir.
-- AI konuşmalarının düzenlenmemiş dökümü ayrıca teslim edilmelidir. `AI_KONUSMA_DOKUMU.md` bu gereksinimin durumunu açıklar.
+
+## AI ile geliştirme süreci
+
+Kullanıcı ve AI mesajlarının özetlenmemiş metin kopyası [AI_KONUSMA_DOKUMU.md](AI_KONUSMA_DOKUMU.md) dosyasındadır. Mesajların ham kayıt alanları ayrıca [docs/AI_KONUSMA_HAM.json](docs/AI_KONUSMA_HAM.json) içinde korunur. Kapsam ve kesim noktası konuşma dosyasının başında açıklanmıştır.

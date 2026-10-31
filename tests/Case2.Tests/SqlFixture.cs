@@ -14,6 +14,14 @@ public sealed class SqlFactAttribute : FactAttribute
             Skip = "SQL_TEST_CONNECTION ayarlı değil; gerçek SQL Server gerekli.";
     }
 }
+public sealed class SqlTheoryAttribute : TheoryAttribute
+{
+    public SqlTheoryAttribute()
+    {
+        if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SQL_TEST_CONNECTION")))
+            Skip = "SQL_TEST_CONNECTION ayarlı değil; gerçek SQL Server gerekli.";
+    }
+}
 public sealed class SqlFixture : IAsyncLifetime
 {
     private WebApplicationFactory<Program>? factory;

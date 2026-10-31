@@ -3,4 +3,8 @@
 .git
 .vs
 .env
+.env.*
+!.env.example
+**/TestResults
+**/*.log
 TestResults

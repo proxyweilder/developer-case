@@ -24,4 +24,4 @@
 | Desktop transaction kullanmıyor | Sorulmalı: ortak güvenlik için eski yazma akışı da düzeltilmeli. |
 | Teklif tekrar gönderimi | Korundu/sorulmalı: Case 2 tekillik istemiyor; her başarı yeni teklif. |
 
-**Durum:** Derleme başarılı; güncel SQL çalıştırmasında 27 birim ve 16 entegrasyon testi dahil 43/43 test geçti. İki runtime container da açıldı; 5081/5082 sağlık kontrolleri HTTP 200 / Healthy döndü. AI dökümü, gerçek süre kaydı ve teslim tarihi henüz tamamlanmadı; 3 saat sınırına uyulduğu varsayılmadı. Ek sürede yük/SQL planı ölçümü, migration hesabı ve desktop ile güvenli ortak yazma ele alınır. Ayrıntılar docs/SORGULAR.md içindedir.
+**Durum:** 31 Ekim kontrolünde gerçek SQL Server üzerinde 27 birim ve 27 entegrasyon testi dahil 54/54 test geçti; atlanan test yok. Çalışma süresi ayrı bir sayaçla ölçülmediğinden kesin aktif süre iddia edilmez. Ek sürede yük/SQL planı ölçümü, migration hesabı ve desktop ile güvenli ortak yazma ele alınır. Ayrıntılar docs/SORGULAR.md içindedir.
